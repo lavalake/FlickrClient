@@ -33,7 +33,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textColor="#FFF"
-            android:text="test"
+            android:text="@{viewModel.title}"
             tools:text="Melbourne CBD" />
     </FrameLayout>
 </layout>

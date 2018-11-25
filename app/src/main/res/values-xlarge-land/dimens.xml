@@ -1,0 +1,3 @@
+<resources>
+    <integer name="galleryColumns">6</integer>
+</resources>

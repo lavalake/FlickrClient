@@ -15,8 +15,12 @@ import com.facebook.common.util.UriUtil;
 
 public class ThumbNailViewModel {
     public static final String TAG = "ThumbNailViewModel: ";
-    public ThumbNailViewModel(String url) {
+    String title;
+    Uri link;
+
+    public ThumbNailViewModel(String url, String title) {
         link = UriUtil.parseUriOrNull(url);
+        this.title = title;
         Log.d(TAG, "url: " +url);
         Log.d(TAG, "uri: " + link);
     }
@@ -29,13 +33,12 @@ public class ThumbNailViewModel {
         this.link = link;
     }
 
-    Uri link;
+    public String getTitle() {
+        return title;
+    }
 
-    /*
-    @BindingAdapter({"app:imageURI"})
-    public static void loadImage(ImageView imageView, Uri link) {
-        Glide.with(imageView.getContext())
-                .load(link)
-                .into(imageView);
-    }*/
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 }

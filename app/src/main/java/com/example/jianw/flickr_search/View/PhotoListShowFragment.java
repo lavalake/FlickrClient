@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jianw.data.PhotoRepositoryFactory;
+import com.example.jianw.domain.PhotoRepository;
 import com.example.jianw.flickr_search.R;
 import com.example.jianw.flickr_search.databinding.PhotoListBinding;
 
@@ -27,6 +29,7 @@ public class PhotoListShowFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRetainInstance(true);
+
         mViewModel = new PhotoListViewModel();
     }
     @Override
@@ -34,7 +37,7 @@ public class PhotoListShowFragment extends Fragment {
         PhotoListBinding binding = DataBindingUtil.inflate(inflater,
                                                            R.layout.photo_list,
                                                            container, false);
-        binding.photosView.setLayoutManager(LayoutManagers.grid(2).create(binding.photosView));
+        binding.photosView.setLayoutManager(LayoutManagers.grid(getActivity().getResources().getInteger(R.integer.galleryColumns)).create(binding.photosView));
         binding.setViewModel(mViewModel);
         return binding.getRoot();
     }
