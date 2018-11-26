@@ -10,10 +10,12 @@ public class Photo {
     String id = UUID.randomUUID().toString();
     String link;
     String title;
+    String origin;
 
-    public Photo(String url, String title) {
+    public Photo(String url, String orig, String title) {
         this.link = url;
         this.title = title;
+        this.origin = orig;
     }
     public String getTitle() {
         return title;
@@ -23,8 +25,16 @@ public class Photo {
         this.title = title;
     }
 
-
     public String getLink() {
         return link;
     }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
 }
