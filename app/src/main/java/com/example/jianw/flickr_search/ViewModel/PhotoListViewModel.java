@@ -1,8 +1,10 @@
 package com.example.jianw.flickr_search.ViewModel;
 
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.jianw.data.PhotoRepositoryFactory;
 import com.example.jianw.domain.GetPhotoes;
@@ -24,12 +26,20 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 
 public class PhotoListViewModel implements IPhotoListCallback{
+    public static final String TAG = "PhotoListViewModel";
     public GetPhotoes mGetPhotoes;
-    public ObservableList<ThumbNailViewModel> mPhotoes = new ObservableArrayList<>();
+    public ObservableList<ThumbNailViewModel> mPhotoes;
+    private IRefreshing refreshCallBack;
 
-    public PhotoListViewModel() {
+
+    public ObservableBoolean refreshing;
+    public PhotoListViewModel(IRefreshing refeshCallBack) {
         mGetPhotoes = new GetPhotoes(PhotoRepositoryFactory.getPhotoRepository());
         mGetPhotoes.getPhotoesList(this);
+        mPhotoes = new ObservableArrayList<>();
+        refreshing = new ObservableBoolean();
+        this.refreshCallBack = refeshCallBack;
+        refeshCallBack.setRefeshing(true);
     }
     /*
     public void init() {
@@ -47,6 +57,14 @@ public class PhotoListViewModel implements IPhotoListCallback{
     }
 
 
+    public ObservableBoolean getRefreshing() {
+        return refreshing;
+    }
+
+    public void setRefreshing(ObservableBoolean refreshing) {
+        Log.e(TAG, "setRefreshing " +refreshing);
+        this.refreshing = refreshing;
+    }
 
     public ItemBinding<ThumbNailViewModel> getItemBinding() {
         return itemBinding;
@@ -58,5 +76,12 @@ public class PhotoListViewModel implements IPhotoListCallback{
     public void onResult(List<Photo> result) {
         mPhotoes.clear();
         mPhotoes.addAll(PhotoListViewModelMapper.mapToThumbNailViewModel(result));
+        refreshing.set(false);
+        refreshCallBack.setRefeshing(false);
+        Log.e(TAG, "set refreshing false");
+    }
+
+    public void onRefresh() {
+        mGetPhotoes.getPhotoesList(this);
     }
 }
