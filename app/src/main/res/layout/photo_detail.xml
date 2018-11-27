@@ -9,7 +9,7 @@
             type="com.example.jianw.flickr_search.ViewModel.PhotoDetailViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,12 +21,23 @@
             app:title="@{viewModel.title}" />
 
         <com.facebook.drawee.view.SimpleDraweeView
+            xmlns:fresco="http://schemas.android.com/apk/android"
             android:id="@+id/photoView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:onClick="@{viewModel::onClick}"
             app:imageURI="@{viewModel.uri}" />
-    </LinearLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:src="@drawable/download"
+            android:background="#00000000"
+            android:gravity="center_vertical"
+            android:paddingLeft="60dp"
+            android:textColor="#FFF"
+            android:onClick="@{viewModel::onClick}"
+             />
+    </FrameLayout>
 </layout>
 

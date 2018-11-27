@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 import com.example.jianw.flickr_search.View.PhotoDetailActivity;
 import com.facebook.common.util.UriUtil;
 
