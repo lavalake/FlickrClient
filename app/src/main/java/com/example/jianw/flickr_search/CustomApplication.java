@@ -1,6 +1,7 @@
 package com.example.jianw.flickr_search;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -16,6 +17,7 @@ import java.util.Set;
  */
 
 public class CustomApplication extends Application {
+    private static Context appContext;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -27,5 +29,9 @@ public class CustomApplication extends Application {
                 .build();
         Fresco.initialize(this, config);
         FLog.setMinimumLoggingLevel(FLog.VERBOSE);
+        appContext = getApplicationContext();
+    }
+    public static Context getAppContext() {
+        return appContext;
     }
 }

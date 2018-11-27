@@ -24,6 +24,8 @@
             android:id="@+id/photoView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clickable="true"
+            android:onClick="@{viewModel::onClick}"
             app:imageURI="@{viewModel.uri}" />
     </LinearLayout>
 </layout>

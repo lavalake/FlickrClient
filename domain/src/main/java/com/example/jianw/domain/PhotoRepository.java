@@ -1,5 +1,7 @@
 package com.example.jianw.domain;
 
+import android.net.Uri;
+
 import java.util.List;
 
 /**
@@ -8,4 +10,5 @@ import java.util.List;
 
 public interface PhotoRepository {
     public List<Photo> getPohtoList(IPhotoListCallback callback);
+    public void savePhotoBitMap(Uri uri, IPhotoSaveCallback callback);
 }

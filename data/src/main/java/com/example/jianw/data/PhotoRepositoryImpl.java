@@ -1,8 +1,10 @@
 package com.example.jianw.data;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.example.jianw.domain.IPhotoListCallback;
+import com.example.jianw.domain.IPhotoSaveCallback;
 import com.example.jianw.domain.Photo;
 import com.example.jianw.domain.PhotoRepository;
 
@@ -40,5 +42,10 @@ public class PhotoRepositoryImpl implements PhotoRepository {
             }
         });
         return photoes;
+    }
+
+    @Override
+    public void savePhotoBitMap(Uri uri, IPhotoSaveCallback callback) {
+        FrescoUtil.savePicture(uri, callback);
     }
 }
