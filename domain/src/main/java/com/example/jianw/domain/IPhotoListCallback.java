@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IPhotoListCallback {
     public void onResult(List<Photo> result);
+    public void onFailure(String error);
 }

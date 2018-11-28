@@ -23,11 +23,11 @@ public class PhotoDetailViewModel implements IPhotoSaveCallback{
     Uri uri;
     String title;
     SavePhoto mSavePhoto;
-    BaseFragment mFragment;
+    IShowToast mToastCallBack;
     public PhotoDetailViewModel(String uri, String title, BaseFragment fragment) {
         this.uri = UriUtil.parseUriOrNull(uri);
         this.title = title;
-        this.mFragment = fragment;
+        this.mToastCallBack = (IShowToast) fragment;
         mSavePhoto = new SavePhoto(PhotoRepositoryFactory.getPhotoRepository());
     }
     public Uri getUri() {
@@ -54,16 +54,16 @@ public class PhotoDetailViewModel implements IPhotoSaveCallback{
     }
 
     @Override
-    public void onResult(Uri uri, boolean result) {
+    public void onResult(Uri uri) {
         String toastMessage;
-        if (result) {
-            CustomApplication.getAppContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-            toastMessage = "Saved Photo to Album";
+        CustomApplication.getAppContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
+        toastMessage = "Saved Photo to Album";
 
-        } else {
-            toastMessage = "Failed to Save Photo to Album";
-            //Toast.makeText(CustomApplication.getAppContext(), "Failed to Save Photo to Album", Toast.LENGTH_LONG);
-        }
-        mFragment.showToast(toastMessage);
+        mToastCallBack.showToast(toastMessage);
+    }
+
+    @Override
+    public void onFailure(String error) {
+        mToastCallBack.showToast(error);
     }
 }

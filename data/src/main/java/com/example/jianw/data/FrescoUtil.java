@@ -48,7 +48,7 @@ public class FrescoUtil {
         String fileName = String.valueOf(picUri.hashCode()) + SUFFIX;
         File file = new File(picDir, fileName);
         if (file.exists()) {
-            callback.onResult(Uri.fromFile(file), true);
+            callback.onResult(Uri.fromFile(file));
             return;
         }
         downLoadImage(picUri,fileName, callback);
@@ -99,15 +99,16 @@ public class FrescoUtil {
                     fos.close();
                     Log.d(TAG, "saved to " + file.getAbsolutePath());
 
-                    callback.onResult(uri, true);
+                    callback.onResult(uri);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    callback.onResult(uri, false);
+                    callback.onFailure("Failed to Save Photo. Please Check Permission");
                 }
             }
 
             @Override
             public void onFailureImpl(DataSource dataSource) {
+                callback.onFailure("Failed to Save Photo. Please Check Network");
             }
         }, CallerThreadExecutor.getInstance());
     }

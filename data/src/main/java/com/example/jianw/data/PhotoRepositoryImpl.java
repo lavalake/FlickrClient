@@ -39,6 +39,7 @@ public class PhotoRepositoryImpl implements PhotoRepository {
             @Override
             public void onFailure (Call<PhotoesResponseEntity> call, Throwable t) {
                 t.printStackTrace();
+                callback.onFailure("Refresh Failed. Please Check Network Connection");
             }
         });
         return photoes;

@@ -7,5 +7,6 @@ import android.net.Uri;
  */
 
 public interface IPhotoSaveCallback {
-    public void onResult(Uri uri, boolean result);
+    public void onResult(Uri uri);
+    public void onFailure(String error);
 }
