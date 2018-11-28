@@ -41,13 +41,7 @@ public class PhotoListViewModel implements IPhotoListCallback{
         this.refreshCallBack = refeshCallBack;
         refeshCallBack.setRefeshing(true);
     }
-    /*
-    public void init() {
-        for (int i=0; i<100; i++) {
-            mPhotoes.add(new ThumbNailViewModel(TEST_URL));
-        }
-    }
-    */
+
     public void setmPhotoes(ObservableList<ThumbNailViewModel> mPhotoes) {
         this.mPhotoes = mPhotoes;
     }

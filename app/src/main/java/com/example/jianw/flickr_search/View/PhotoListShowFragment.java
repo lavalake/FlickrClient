@@ -47,6 +47,11 @@ public class PhotoListShowFragment extends BaseFragment implements IRefreshing{
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mSwip = null;
+    }
+    @Override
     public void setRefeshing(boolean state) {
         if (mSwip != null) mSwip.setRefreshing(state);
     }
