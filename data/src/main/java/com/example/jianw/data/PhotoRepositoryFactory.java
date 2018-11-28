@@ -10,15 +10,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class PhotoRepositoryFactory {
+    static PhotoRepository mRepository;
     public static PhotoRepository getPhotoRepository(){
-        OkHttpClient httpClient = new OkHttpClient.Builder().build();
-        FlickrInterface api = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(FlickrApiConstants.BASE_URL)
-                .client(httpClient)
-                .build()
-                .create(FlickrInterface.class);
-        return new PhotoRepositoryImpl(api);
+        if (mRepository == null) {
+            synchronized (PhotoRepositoryFactory.class) {
+                if (mRepository == null) {
+                    OkHttpClient httpClient = new OkHttpClient.Builder().build();
+                    FlickrInterface api = new Retrofit.Builder()
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .baseUrl(FlickrApiConstants.BASE_URL)
+                            .client(httpClient)
+                            .build()
+                            .create(FlickrInterface.class);
+                    mRepository = new PhotoRepositoryImpl(api);
+                }
+            }
+        }
+        return mRepository;
     }
 }
 
