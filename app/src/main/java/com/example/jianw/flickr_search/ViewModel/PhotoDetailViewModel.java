@@ -11,6 +11,7 @@ import com.example.jianw.data.PhotoRepositoryFactory;
 import com.example.jianw.domain.IPhotoSaveCallback;
 import com.example.jianw.domain.SavePhoto;
 import com.example.jianw.flickr_search.CustomApplication;
+import com.example.jianw.flickr_search.View.BaseFragment;
 import com.facebook.common.util.UriUtil;
 
 /**
@@ -22,9 +23,11 @@ public class PhotoDetailViewModel implements IPhotoSaveCallback{
     Uri uri;
     String title;
     SavePhoto mSavePhoto;
-    public PhotoDetailViewModel(String uri, String title) {
+    BaseFragment mFragment;
+    public PhotoDetailViewModel(String uri, String title, BaseFragment fragment) {
         this.uri = UriUtil.parseUriOrNull(uri);
         this.title = title;
+        this.mFragment = fragment;
         mSavePhoto = new SavePhoto(PhotoRepositoryFactory.getPhotoRepository());
     }
     public Uri getUri() {
@@ -46,7 +49,7 @@ public class PhotoDetailViewModel implements IPhotoSaveCallback{
     }
 
     public void onClick(View v) {
-        Log.e(TAG, "clicked");
+        Log.e(TAG, "clicked uri " + uri);
         mSavePhoto.savePhotoBitMap(uri, this);
     }
 
@@ -61,5 +64,6 @@ public class PhotoDetailViewModel implements IPhotoSaveCallback{
             toastMessage = "Failed to Save Photo to Album";
             //Toast.makeText(CustomApplication.getAppContext(), "Failed to Save Photo to Album", Toast.LENGTH_LONG);
         }
+        mFragment.showToast(toastMessage);
     }
 }

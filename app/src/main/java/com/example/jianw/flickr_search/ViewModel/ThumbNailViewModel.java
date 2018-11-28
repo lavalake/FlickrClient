@@ -20,10 +20,12 @@ public class ThumbNailViewModel {
     String title;
     Uri link;
     String originalLink;
+    String largeLink;
 
-    public ThumbNailViewModel(String thumb, String origin, String title) {
+    public ThumbNailViewModel(String thumb, String origin, String large, String title) {
         link = UriUtil.parseUriOrNull(thumb);
         originalLink = origin;
+        largeLink = large;
         this.title = title;
     }
     public Uri getLink() {
@@ -44,12 +46,13 @@ public class ThumbNailViewModel {
     }
 
     public void onClick(View v) {
+        String picLink = originalLink!=null?originalLink:largeLink;
         Intent intent = new Intent(v.getContext(), PhotoDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("uri", originalLink);
+        bundle.putString("uri", picLink);
         bundle.putString("title", title);
         intent.putExtras(bundle);
-        Log.d(TAG, "start photo detail");
+        Log.d(TAG, "start photo detail" + picLink);
         v.getContext().startActivity(intent);
 
     }

@@ -17,7 +17,7 @@ import com.example.jianw.flickr_search.databinding.PhotoDetailBinding;
  * Created by jian1.w on 11/25/2018.
  */
 
-public class PhotoDetailFragment extends Fragment {
+public class PhotoDetailFragment extends BaseFragment {
     PhotoDetailViewModel mViewModel;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class PhotoDetailFragment extends Fragment {
         Bundle bundle = getArguments();
         String uri = bundle.getString("uri");
         String title = bundle.getString("title");
-        mViewModel = new PhotoDetailViewModel(uri, title);
+        mViewModel = new PhotoDetailViewModel(uri, title, this);
     }
 
     @Override

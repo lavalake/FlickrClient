@@ -16,7 +16,7 @@ public class PhotoListViewModelMapper {
     public static ObservableList<ThumbNailViewModel> mapToThumbNailViewModel(List<Photo> photoes){
         ObservableList<ThumbNailViewModel> result = new ObservableArrayList<>();
         for (Photo p : photoes) {
-            result.add(new ThumbNailViewModel(p.getLink(), p.getOrigin(), p.getTitle()));
+            result.add(new ThumbNailViewModel(p.getLink(), p.getOrigin(), p.getLarge(), p.getTitle()));
         }
         return result;
     }

@@ -2,6 +2,8 @@ package com.example.jianw.flickr_search;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.MainThread;
+import android.widget.Toast;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.drawee.backends.pipeline.Fresco;

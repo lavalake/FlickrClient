@@ -24,7 +24,7 @@ import me.tatarka.bindingcollectionadapter2.LayoutManagers;
  * Created by jian1.w on 11/24/2018.
  */
 
-public class PhotoListShowFragment extends Fragment implements IRefreshing{
+public class PhotoListShowFragment extends BaseFragment implements IRefreshing{
     private PhotoListViewModel mViewModel;
     private SwipeRefreshLayout mSwip;
 
