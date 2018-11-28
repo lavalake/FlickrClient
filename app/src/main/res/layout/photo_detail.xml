@@ -14,27 +14,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@{viewModel.title}" />
-
         <com.facebook.drawee.view.SimpleDraweeView
             xmlns:fresco="http://schemas.android.com/apk/android"
             android:id="@+id/photoView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
+            app:viewAspectRatio="2"
             app:imageURI="@{viewModel.uri}" />
+        <TextView
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#40000000"
+            android:textColor="#FFFFFF"
+            android:text="@{viewModel.title}" />
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="bottom"
             android:src="@drawable/download"
-            android:background="#00000000"
+            android:background="#40000000"
             android:gravity="center_vertical"
-            android:paddingLeft="60dp"
             android:textColor="#FFF"
             android:onClick="@{viewModel::onClick}"
              />

@@ -12,12 +12,14 @@ public class Photo {
     String title;
     String origin;
     String large;
+    String medium;
 
-    public Photo(String url, String orig, String large, String title) {
+    public Photo(String url, String orig, String large, String medium, String title) {
         this.link = url;
         this.title = title;
         this.origin = orig;
         this.large = large;
+        this.medium = medium;
     }
     public String getTitle() {
         return title;
@@ -45,5 +47,13 @@ public class Photo {
 
     public void setLarge(String large) {
         this.large = large;
+    }
+
+    public String getMedium() {
+        return medium;
+    }
+
+    public void setMedium(String medium) {
+        this.medium = medium;
     }
 }

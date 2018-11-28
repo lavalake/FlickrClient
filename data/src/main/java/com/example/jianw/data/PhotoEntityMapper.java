@@ -13,7 +13,7 @@ public class PhotoEntityMapper {
     public static List<Photo> mapToPhoto(List<PhotoEntity> result) {
         List<Photo> photos = new ArrayList<>();
         for (PhotoEntity p : result) {
-            photos.add(new Photo(p.getUrl_t(), p.getUrl_o(), p.getUrl_l(), p.getTitle()));
+            photos.add(new Photo(p.getUrl_t(), p.getUrl_o(), p.getUrl_l(), p.getUrl_c(), p.getTitle()));
         }
         return photos;
     }
