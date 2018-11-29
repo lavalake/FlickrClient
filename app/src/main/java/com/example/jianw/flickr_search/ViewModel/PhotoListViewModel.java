@@ -13,6 +13,7 @@ import com.example.jianw.flickr_search.BR;
 import com.example.jianw.flickr_search.R;
 import com.example.jianw.flickr_search.View.BaseFragment;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -21,22 +22,19 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  * Created by jian1.w on 11/24/2018.
  */
 
-public class PhotoListViewModel implements IPhotoListCallback{
+public class PhotoListViewModel extends BaseViewModel implements IPhotoListCallback{
     public static final String TAG = "PhotoListViewModel";
     public GetPhotoes mGetPhotoes;
     public ObservableList<ThumbNailViewModel> mPhotoes;
-    private IRefreshing mRefreshCallBack;
-    private IShowToast mToastCallBack;
-    public ObservableBoolean refreshing;
+    private WeakReference<IRefreshing> mRefreshCallBack;
 
     public PhotoListViewModel(BaseFragment fragment) {
+        super(fragment);
         mGetPhotoes = new GetPhotoes(PhotoRepositoryFactory.getPhotoRepository());
         mGetPhotoes.getPhotoesList(this);
         mPhotoes = new ObservableArrayList<>();
-        refreshing = new ObservableBoolean();
-        mRefreshCallBack = (IRefreshing) fragment;
-        mToastCallBack = (IShowToast) fragment;
-        mRefreshCallBack.setRefeshing(true);
+        mRefreshCallBack = new WeakReference<>((IRefreshing) fragment);
+        setRefreshingState(true);
     }
 
     public void setmPhotoes(ObservableList<ThumbNailViewModel> mPhotoes) {
@@ -45,16 +43,6 @@ public class PhotoListViewModel implements IPhotoListCallback{
 
     public ObservableList<ThumbNailViewModel> getmPhotoes() {
         return mPhotoes;
-    }
-
-
-    public ObservableBoolean getRefreshing() {
-        return refreshing;
-    }
-
-    public void setRefreshing(ObservableBoolean refreshing) {
-        Log.e(TAG, "setRefreshing " +refreshing);
-        this.refreshing = refreshing;
     }
 
     public ItemBinding<ThumbNailViewModel> getItemBinding() {
@@ -67,15 +55,18 @@ public class PhotoListViewModel implements IPhotoListCallback{
     public void onResult(List<Photo> result) {
         mPhotoes.clear();
         mPhotoes.addAll(PhotoListViewModelMapper.mapToThumbNailViewModel(result));
-        refreshing.set(false);
-        mRefreshCallBack.setRefeshing(false);
+        setRefreshingState(false);
         Log.e(TAG, "set refreshing false");
     }
 
     @Override
     public void onFailure(String error) {
-        mToastCallBack.showToast(error);
-        mRefreshCallBack.setRefeshing(false);
+        showToast(error);
+        setRefreshingState(false);
+    }
+
+    private void setRefreshingState(boolean state) {
+        if (mRefreshCallBack.get() != null) mRefreshCallBack.get().setRefeshing(state);
     }
 
     public void onRefresh() {

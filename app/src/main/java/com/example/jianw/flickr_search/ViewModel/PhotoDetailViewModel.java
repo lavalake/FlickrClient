@@ -14,20 +14,21 @@ import com.example.jianw.flickr_search.CustomApplication;
 import com.example.jianw.flickr_search.View.BaseFragment;
 import com.facebook.common.util.UriUtil;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by jian1.w on 11/25/2018.
  */
 
-public class PhotoDetailViewModel implements IPhotoSaveCallback{
+public class PhotoDetailViewModel extends BaseViewModel implements IPhotoSaveCallback{
     public static final String TAG = "PhotoDetailViewModel";
     Uri uri;
     String title;
     SavePhoto mSavePhoto;
-    IShowToast mToastCallBack;
     public PhotoDetailViewModel(String uri, String title, BaseFragment fragment) {
+        super(fragment);
         this.uri = UriUtil.parseUriOrNull(uri);
         this.title = title;
-        this.mToastCallBack = (IShowToast) fragment;
         mSavePhoto = new SavePhoto(PhotoRepositoryFactory.getPhotoRepository());
     }
     public Uri getUri() {
@@ -59,11 +60,11 @@ public class PhotoDetailViewModel implements IPhotoSaveCallback{
         CustomApplication.getAppContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
         toastMessage = "Saved Photo to Album";
 
-        mToastCallBack.showToast(toastMessage);
+        showToast(toastMessage);
     }
 
     @Override
-    public void onFailure(String error) {
-        mToastCallBack.showToast(error);
+    public void onFailure(String error){
+        showToast(error);
     }
 }
